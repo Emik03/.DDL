@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>.DDL.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="the-ddl-project">The .DDL Project</h1>
+<p>The .DDL Project (Dynamic Dependency Loading) is a document that aims to explain the effects of dependencies in the programming language C#.</p>
+<p>This document will assume the reader having basic knowledge of the C# language. If you aren't familiar in the language, you may start <a href="https://docs.microsoft.com/en-us/dotnet/csharp/">at the official documentation page</a>.</p>
+<ul>
+<li><a href="#the-ddl-project">The .DDL Project</a></li>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#chapter-1-introduction">Chapter 1: Introduction</a>
+<ul>
+<li><a href="#chapter-11-what-is-an-assembly-and-dependency">Chapter 1.1: What is an assembly and dependency?</a></li>
+<li><a href="#chapter-12-how-do-we-know-what-dependencies-we-are-using">Chapter 1.2: How do we know what dependencies we are using?</a></li>
+<li><a href="#chapter-13-seeing-the-effects-of-loading-a-different-assembly">Chapter 1.3: Seeing the effects of loading a different assembly</a></li>
+<li><a href="#chapter-14-assembly-searching">Chapter 1.4: Assembly searching</a></li>
+<li><a href="#chapter-15-strong-naming">Chapter 1.5: Strong naming</a></li>
+</ul>
+</li>
+<li><a href="#chapter-2-handling-missing-dependencies">Chapter 2: Handling missing dependencies</a>
+<ul>
+<li><a href="#chapter-21-what-happens-when-a-dependency-is-missing">Chapter 2.1: What happens when a dependency is missing?</a></li>
+<li><a href="#chapter-22-catching-the-exception">Chapter 2.2: Catching the exception</a></li>
+<li><a href="#chapter-23-the-ddl-pattern">Chapter 2.3: The DDL Pattern</a></li>
+<li><a href="#chapter-24-delegates-and-methods">Chapter 2.4: Delegates and methods</a></li>
+<li><a href="#chapter-25-object">Chapter 2.5: Object</a></li>
+<li><a href="#chapter-26-members">Chapter 2.6: Members</a></li>
+</ul>
+</li>
+<li><a href="#chapter-3-unity--mono">Chapter 3: Unity / Mono</a>
+<ul>
+<li><a href="#chapter-31-using-the-dll-pattern-in-unity">Chapter 3.1: Using the DLL Pattern in Unity</a></li>
+<li><a href="#chapter-32-dependency-avoidance-from-generics-in-unity">Chapter 3.2: Dependency Avoidance from Generics in Unity</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="abstract">Abstract</h1>
+<p>This document discusses dependencies and assemblies in C#, especially regarding how they are loaded, which is whenever a type or method is called with all of its members being loaded into memory. You can therefore hide dependencies behind methods and only invoke them when the dependency is certain. There are some exceptions to the rule depending on the environment which would require some fiddling, but can end up producing libraries that are able to be simultaneously used in conflicting scenarios without requiring a separate build for each one.</p>
+<hr>
+<h1 id="chapter-1-introduction">Chapter 1: Introduction</h1>
+<h2 id="chapter-11-what-is-an-assembly-and-dependency">Chapter 1.1: What is an assembly and dependency?</h2>
+<p>In C#, a dependency is formed when some piece of code points to another piece of code from another assembly. <a href="https://docs.microsoft.com/en-us/dotnet/standard/assembly/">Assemblies are collections of types packaged in a <code>.dll</code> or <code>.exe</code> file</a>. Any C# programmer does this, even in the simplest of programs, whether they are aware of it or not. For example, look at this extremely simple &quot;Hello World!&quot; program. The rest of this chapter will use a .NET 6.0 Console Application.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"Hello World!"</span>);
+        }
+    }
+}
+</div></code></pre>
+<p>Surely such a simple program wouldn't need dependencies, but it does. If you look carefully, we are both referencing <a href="https://docs.microsoft.com/en-us/dotnet/api/system.string"><code>string</code></a> and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.console"><code>Console</code></a>, which both come from the <a href="https://docs.microsoft.com/en-us/dotnet/api/system"><code>System</code></a> namespace. Rather than having to reinvent the wheel, a programmer can use preexisting code to tell the console to print a few words.</p>
+<h2 id="chapter-12-how-do-we-know-what-dependencies-we-are-using">Chapter 1.2: How do we know what dependencies we are using?</h2>
+<p>Fortunately, checking which dependencies are loaded is very easy thanks to the combination of the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.appdomain"><code>AppDomain</code></a> class and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection"><code>System.Reflection</code></a> namespace. In the following demonstration, we will get the current domain using <a href="https://docs.microsoft.com/en-us/dotnet/api/system.appdomain.currentdomain"><code>CurrentDomain</code></a> and then get all assemblies with <a href="https://docs.microsoft.com/en-us/dotnet/api/system.appdomain.getassemblies"><code>GetAssemblies()</code></a>. We will use a <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements#the-foreach-statement"><code>foreach</code></a> loop to iterate each one and print out its name by converting it to <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.assemblyname"><code>AssemblyName</code></a> with <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.assembly.getname"><code>GetName()</code></a> and using the property <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.assemblyname.name"><code>Name</code></a>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Reflection;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"Hello World!"</span>);
+
+            Assembly[] assemblies = AppDomain
+                .CurrentDomain
+                .GetAssemblies();
+
+            <span class="hljs-keyword">foreach</span> (Assembly? assembly <span class="hljs-keyword">in</span> assemblies)
+            {
+                <span class="hljs-keyword">string</span> name = assembly
+                    .GetName()
+                    .Name;
+
+                Console.WriteLine(name);
+            }
+        }
+    }
+}
+</div></code></pre>
+<p>Running this code produces the following output:</p>
+<pre class="hljs"><code><div>Hello World!
+System.Private.CoreLib
+DDLProject
+System.Runtime
+System.Console
+System.Threading
+System.Text.Encoding.Extensions
+</div></code></pre>
+<h2 id="chapter-13-seeing-the-effects-of-loading-a-different-assembly">Chapter 1.3: Seeing the effects of loading a different assembly</h2>
+<p>We are able to see that seven different dependencies are at play here, mostly essential assemblies for Console Applications. Now, we will add a bit of code that will reference the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex"><code>Regex</code></a> class, which comes from a different assembly.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Reflection;
+<span class="hljs-keyword">using</span> System.Text.RegularExpressions;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"Hello World!"</span>);
+
+            _ = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">"foo"</span>);
+
+            Assembly[] assemblies = AppDomain
+                .CurrentDomain
+                .GetAssemblies();
+
+            <span class="hljs-keyword">foreach</span> (Assembly? assembly <span class="hljs-keyword">in</span> assemblies)
+                Console.WriteLine(assembly.GetName().Name);
+        }
+    }
+}
+</div></code></pre>
+<p>Now the code output is as follows:</p>
+<pre class="hljs"><code><div>Hello World!
+System.Private.CoreLib
+DDLProject
+System.Runtime
+System.Console
+System.Text.RegularExpressions
+System.Threading
+System.Text.Encoding.Extensions
+System.Collections
+</div></code></pre>
+<p>As you can see, there are now two new assemblies which have been loaded, <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions"><code>System.Text.RegularExpressions</code></a>, and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections"><code>System.Collections</code></a>. This makes sense, <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex"><code>Regex</code></a> comes from <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions"><code>System.Text.RegularExpressions</code></a>, and the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex"><code>Regex</code></a> class has a reference to <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections"><code>System.Collections</code></a>, shown <a href="https://referencesource.microsoft.com/#system/regex/system/text/regularexpressions/Regex.cs,14">here</a>. As such, both assemblies are loaded into the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.appdomain"><code>AppDomain</code></a>.</p>
+<p>Finally, the following example shows a user-defined Class Library, followed by the usage of this library, demonstrating that the user-defined assembly is also added.</p>
+<p>The library:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Dependency</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span>
+    {
+    }
+}
+</div></code></pre>
+<p>The program:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Reflection;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"Hello World!"</span>);
+
+            _ = <span class="hljs-keyword">new</span> Foo();
+
+            Assembly[] assemblies = AppDomain
+                .CurrentDomain
+                .GetAssemblies();
+
+            <span class="hljs-keyword">foreach</span> (Assembly? assembly <span class="hljs-keyword">in</span> assemblies)
+                Console.WriteLine(assembly.GetName().Name);
+        }
+    }
+}
+</div></code></pre>
+<p>The output:</p>
+<pre class="hljs"><code><div>Hello World!
+System.Private.CoreLib
+DDLProject
+System.Runtime
+System.Console
+Dependency
+System.Threading
+System.Text.Encoding.Extensions
+</div></code></pre>
+<p>As shown here, <code>Dependency</code> has been added as a dependency because we are creating a <code>Foo</code> object which comes from that assembly. While this may seem obvious, it is vital to understand the basics before diving into the next chapters.</p>
+<h2 id="chapter-14-assembly-searching">Chapter 1.4: Assembly searching</h2>
+<p>When an assembly is referenced, C# will automatically search for the file, and load it into memory. Once loaded, an assembly cannot be unloaded. You can isolate dependencies by creating a new <a href="https://docs.microsoft.com/en-us/dotnet/api/system.appdomain">AppDomain</a> and loading the dependency in there as a workaround. The language will first search through the global assembly cache, then the directory of the running application and any subdirectories it may have until it finds the assembly. An important note is that regardless of namespace or type declarations, it will search for the specific assembly, and not get fooled by similar declarations. Consider the following example.</p>
+<p>The first library:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Dependency</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Method</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">"First library"</span>;
+    }
+}
+</div></code></pre>
+<p>The second library:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Dependency</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Method</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">"Second library"</span>;
+    }
+}
+</div></code></pre>
+<p>Both assemblies will have different project names, but have identical declarations, with the only difference being that the method returns different strings. Now with both of them compiled, let's add the first one to our project.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Reflection;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-keyword">new</span> Foo().Method());
+        }
+    }
+}
+</div></code></pre>
+<p>Now unsurprisingly, if we compile this program and only include the first dependency, then the output will be as expected.</p>
+<p>The output:</p>
+<pre class="hljs"><code><div>First library
+</div></code></pre>
+<p>When we include both dependencies, we still get the same result.</p>
+<p>The output:</p>
+<pre class="hljs"><code><div>First library
+</div></code></pre>
+<p>This is the crucial part though, if we only include the other dependency, then we get an error.</p>
+<p>The output:</p>
+<pre class="hljs"><code><div>Unhandled exception. System.IO.FileNotFoundException: Could not load file or assembly 'FirstDependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The specified module could not be found.
+File name: 'FirstDependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
+</div></code></pre>
+<p>As shown here, namespaces and types contribute nothing for conflicts. That is unless both assemblies have the same name and metadata, in that case, the first two tests will pass, but something changes drastically in the third test.</p>
+<p>The output:</p>
+<pre class="hljs"><code><div>Second library
+</div></code></pre>
+<p>It uses the second library because it has the same name, and therefore thinks it is the library to use. The only reason that the second example succeeded was that it was able to find the first library before the second one. Now this can be a very useful tool, and is the default behavior of libraries. However, it can allow others to spoof your dependencies as shown in the earlier example. The simplest way to resolve this is to make your library strongly named.</p>
+<h2 id="chapter-15-strong-naming">Chapter 1.5: Strong naming</h2>
+<p>For more details about how it searches the assembly, you can <a href="https://docs.microsoft.com/en-us/dotnet/framework/deployment/how-the-runtime-locates-assemblies">visit this page</a>.</p>
+<p>Strong-naming is an extended way to sign your assembly. Alongside the name of the assembly, a digital signature is generated from a private key created by the maintainers. The version number, culture information, and public key are also added as part of the identification of the library. There are two main purposes of using a strong-named library.</p>
+<ol>
+<li>To prevent others from overriding your library which could potentially contain malicious code.</li>
+<li>To allow others from loading multiple versions of the same library.</li>
+</ol>
+<p>To demonstrate the effects, you can create a class library that will be strongly named with the following simple code.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Dependency</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Method</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">"First library"</span>;
+    }
+}
+</div></code></pre>
+<p>Build the library, and then rename the exported <code>dll</code> in the <code>bin</code> folder so that it won't get overridden later. From there, we can change our code. Change the return of <code>Foo.Method()</code> to be anything else. In this example it will be <code>Second library</code>. Before compiling, change some part of the signature, such as the version number. Once both libraries are compiled, create a project and reference either dependency. Make sure to disable <code>Copy Local</code> for said dependency. From there, build, copy the other dependency, and test the application. The program will throw a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception?view=net-6.0"><code>FileNotFoundException</code></a> even if you renamed the file to be the same as the original due to the different signatures that they have.</p>
+<h1 id="chapter-2-handling-missing-dependencies">Chapter 2: Handling missing dependencies</h1>
+<h2 id="chapter-21-what-happens-when-a-dependency-is-missing">Chapter 2.1: What happens when a dependency is missing?</h2>
+<p>Now as the name says, a dependency depends on the existence of other code. However, there are situations in which an assembly isn't available or present. Let's go back to the final example shown from Example 1.3 and build the code an an <code>.exe</code> file, except this time we remove the <code>Dependency.dll</code> file.</p>
+<p>Opening the application results in the following error:</p>
+<pre class="hljs"><code><div>Unhandled exception. System.IO.FileNotFoundException: Could not load file or assembly 'Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The specified module could not be found.
+File name: 'Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
+   at DDLProject.Program.Main(String[] args)
+</div></code></pre>
+<p>Unsurprisingly, we see a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception"><code>FileNotFoundException</code></a> being thrown.</p>
+<h2 id="chapter-22-catching-the-exception">Chapter 2.2: Catching the exception</h2>
+<p>Now naturally, as an exception is thrown, we might want to catch the exception and do something different. Let's wrap the previous example with a try-catch.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"Outside of the try-catch."</span>);
+            
+            <span class="hljs-keyword">try</span>
+            {
+                Console.WriteLine(<span class="hljs-string">"Inside of the try-catch."</span>);
+            
+                _ = <span class="hljs-keyword">new</span> Foo();
+            }
+            <span class="hljs-keyword">catch</span> (FileNotFoundException)
+            {
+                Console.WriteLine(<span class="hljs-string">"Caught!"</span>);
+            }
+            
+            Console.ReadLine();
+        }
+    }
+}
+</div></code></pre>
+<p>However, the exception is still thrown. Output:</p>
+<pre class="hljs"><code><div>Unhandled exception. System.IO.FileNotFoundException: Could not load file or assembly 'Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The specified module could not be found.
+File name: 'Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
+   at DDLProject.Program.Main(String[] args)
+</div></code></pre>
+<p>Given that none of the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.console.writeline"><code>WriteLine</code></a> statements were called, this tells us that the exception is thrown at latest the method invoke. In that case, let's extract the instantiation of <code>Foo</code> into a method, and call the method inside a try-catch.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"Outside of the try-catch."</span>);
+            
+            <span class="hljs-keyword">try</span>
+            {
+                Console.WriteLine(<span class="hljs-string">"Inside of the try-catch."</span>);
+                Dependency();
+            }
+            <span class="hljs-keyword">catch</span> (FileNotFoundException)
+            {
+                Console.WriteLine(<span class="hljs-string">"Caught!"</span>);
+            }
+
+            Console.ReadLine();
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Dependency</span>(<span class="hljs-params"></span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">"We shouldn't see this."</span>);
+
+            _ = <span class="hljs-keyword">new</span> Foo();
+        }
+    }
+}
+</div></code></pre>
+<p>Now, the output of the program is as follows:</p>
+<pre class="hljs"><code><div>Outside of the try-catch.
+Inside of the try-catch.
+Caught!
+</div></code></pre>
+<p>As you can see, the program now correctly halts as it falls into the <code>catch</code> block. We can see precisely that the first part of the try-catch was able to be done, but none of the statements in <code>Dependency</code> were able to run because the method invoke caused a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception"><code>FileNotFoundException</code></a> to be thrown.</p>
+<h2 id="chapter-23-the-ddl-pattern">Chapter 2.3: The DDL Pattern</h2>
+<p>While a try-catch can certainly be used, there are drawbacks. For instance, a <code>FileNotFoundException</code> is not exclusive to a missing dependency, try-catches also by nature are not very performant. Fortunately, there are ways to determine the existence of assemblies and execute code as such. First, create a class (<a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/static"><code>static</code></a>, <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/sealed"><code>sealed</code></a>, or otherwise) that contains an enum of dependencies which includes none, a public getter for this enum, and a static constructor.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DDLPatternExample</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Dependencies
+        {
+            None, Dependency
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-title">DDLPatternExample</span>(<span class="hljs-params"></span>)</span> { }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Dependencies Dependency { <span class="hljs-keyword">get</span>; }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.ReadLine();
+        }
+    }
+}
+</div></code></pre>
+<p>The enum type allows you to later expand with more dependencies if needed, such as different dependencies based on the operating system of the end user. Next, we will make the static constructor determine which assembly to use.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DDLPatternExample</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Dependencies
+        {
+            None, Dependency
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-title">DDLPatternExample</span>(<span class="hljs-params"></span>)</span> =&gt; Dependency = AppDomain
+            .CurrentDomain
+            .GetAssemblies()
+            .Any(s =&gt; s.GetName().FullName == <span class="hljs-string">"Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"</span>)
+            ? Dependencies.Dependency
+            : Dependencies.None;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Dependencies Dependency { <span class="hljs-keyword">get</span>; }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.ReadLine();
+        }
+    }
+}
+</div></code></pre>
+<p>As we only have 2 members in our enum, for now we can make it extremely bare bone and only evaluate whether any loaded assembly has the same name as our dependency. Keep in mind that this means the class will only determine whether the library has been successfully loaded into memory when the static constructor is called, which would be the first time that this type is called. We can later expand it in the event that more dependencies are needed. Now, for each member that we want to access, we will be creating N+1 methods, where N is the number of dependencies. We will go back to our <code>Dependency</code> project and add a method that returns some value for demonstration.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Dependency</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span>
+    {
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> s_id;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">CurrentId</span>(<span class="hljs-params"></span>)</span> =&gt; ++s_id;
+    }
+}
+</div></code></pre>
+<p>Suppose we want to invoke <code>CurrentId</code> without resorting to a try-catch, we will first add a <code>CurrentIdInner</code> method in our class that calls the method directly.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DDLPatternExample</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Dependencies
+        {
+            None, Dependency
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-title">DDLPatternExample</span>(<span class="hljs-params"></span>)</span> =&gt; Dependency = AppDomain
+            .CurrentDomain
+            .GetAssemblies()
+            .Any(s =&gt; s.GetName().FullName == <span class="hljs-string">"Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"</span>)
+            ? Dependencies.Dependency
+            : Dependencies.None;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Dependencies Dependency { <span class="hljs-keyword">get</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">CurrentIdInner</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-keyword">new</span> Foo().CurrentId();
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.ReadLine();
+        }
+    }
+}
+</div></code></pre>
+<p>Accessibility here is crucial, make sure this method is private! If you allow other classes to run the method then you risk a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception"><code>FileNotFoundException</code></a>, or loading it into memory when you don't want to. What will be done instead is we add a method that asks what <code>Dependency</code> is, and run the method accordingly. We will use a switch expression due to its extremely light syntax, but you can use a regular switch or if/else-if/else pattern instead.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DDLPatternExample</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Dependencies
+        {
+            None, Dependency
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-title">DDLPatternExample</span>(<span class="hljs-params"></span>)</span> =&gt; Dependency = AppDomain
+            .CurrentDomain
+            .GetAssemblies()
+            .Any(s =&gt; s.GetName().FullName == <span class="hljs-string">"Dependency, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"</span>)
+            ? Dependencies.Dependency
+            : Dependencies.None;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Dependencies Dependency { <span class="hljs-keyword">get</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">CurrentId</span>(<span class="hljs-params"></span>)</span> =&gt; Dependency <span class="hljs-keyword">switch</span>
+        {
+            Dependencies.None =&gt; <span class="hljs-number">0</span>,
+            Dependencies.Dependency =&gt; CurrentIdInner(),
+            _ =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NotImplementedException(<span class="hljs-string">$"The value of <span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(Dependency)}</span> hasn't been implemented: <span class="hljs-subst">{Dependency}</span>."</span>)
+        };
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">CurrentIdInner</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-keyword">new</span> Foo().CurrentId();
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Console.ReadLine();
+        }
+    }
+}
+</div></code></pre>
+<p>Now, <code>CurrentId</code> is what we call instead when we need to access the value. Based on what dependency is, it will return <code>0</code> for no dependency, <code>Foo.CurrentId</code> for the dependency, and throw otherwise. The reason this won't throw is because as long as the method which contains the dependency isn't invoked, C# will continue to run your method. Making method calls unreachable allows us to keep our application from loading the assemblies until we are certain that they exist.</p>
+<h2 id="chapter-24-delegates-and-methods">Chapter 2.4: Delegates and methods</h2>
+<p>In a similar way that you can hide dependencies by using methods, you can do the same with delegates and events since they also act essentially as methods. This is really powerful since you are able to pass in delegates back-and-forth and still have full control on which dependencies are loaded. The following demonstration shows an object <code>Foo</code> created inside an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.action"><code>Action</code></a>. The console will print <code>true</code> only if <code>Dependency</code> is loaded into memory, otherwise <code>false</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Action a = () =&gt; _ = <span class="hljs-keyword">new</span> Foo();
+
+            Console.WriteLine(AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Select(s =&gt; s.GetName().Name)
+                .Contains(<span class="hljs-string">"Dependency"</span>));
+        }
+    }
+}
+</div></code></pre>
+<p>The output:</p>
+<pre class="hljs"><code><div>false
+</div></code></pre>
+<p>Unsurprisingly, if you invoke this method, as demonstrated in <a href="#chapter-22-catching-the-exception">Chapter 2.2: Catching the exception</a>, because the method contains a member that requires a reference to the <code>Dependency</code> assembly, it will have to load it into memory.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Action a = () =&gt; _ = <span class="hljs-keyword">new</span> Foo();
+            a();
+
+            Console.WriteLine(AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Select(s =&gt; s.GetName().Name)
+                .Contains(<span class="hljs-string">"Dependency"</span>));
+        }
+    }
+}
+</div></code></pre>
+<p>The output:</p>
+<pre class="hljs"><code><div>true
+</div></code></pre>
+<h2 id="chapter-25-object">Chapter 2.5: Object</h2>
+<p>The type <a href="https://docs.microsoft.com/en-us/dotnet/api/system.object"><code>object</code></a> — being able to store any value — can store the values of another dependency. The important aspect of this however is that <a href="https://docs.microsoft.com/en-us/dotnet/api/system.object"><code>object</code></a> can be used to hide the fact that you are intending to pass values from the other dependencies in which you don't want to load until called. The following example shows 3 different methods, a defined method in a class, an encapsulated <a href="https://docs.microsoft.com/en-us/dotnet/api/system.func-2"><code>Func{T, TResult}</code></a>, and an implementation of a user-defined method that takes in an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.object"><code>object</code></a> and returns an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.object"><code>object</code></a>. All of them cast the value to <code>Foo</code>, use one of its methods, and then returns it as <code>Foo</code>. As long as we do not call any of these methods, C# will not load any of the dependencies.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DLLProject</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">delegate</span> <span class="hljs-keyword">object</span> <span class="hljs-title">Test</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> foo</span>)</span>;
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">object</span> <span class="hljs-title">Method</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> foo</span>)</span>
+        {
+            Console.WriteLine(((Foo)foo).CurrentId());
+            <span class="hljs-keyword">return</span> (Foo)foo;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Func&lt;<span class="hljs-keyword">object</span>, <span class="hljs-keyword">object</span>&gt; action = foo =&gt;
+            {
+                Console.WriteLine(((Foo)foo).CurrentId());
+                <span class="hljs-keyword">return</span> (Foo)foo;
+            };
+
+            Test test = foo =&gt;
+            {
+                Console.WriteLine(((Foo)foo).CurrentId());
+                <span class="hljs-keyword">return</span> (Foo)foo;
+            };
+
+            Console.WriteLine(AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Select(s =&gt; s.GetName().Name)
+                .Contains(<span class="hljs-string">"Dependency"</span>));
+        }
+    }
+}
+</div></code></pre>
+<p>The output:</p>
+<pre class="hljs"><code><div>false
+</div></code></pre>
+<h2 id="chapter-26-members">Chapter 2.6: Members</h2>
+<p>Classes and structs work similarly to methods in that the first time they are called will result in loading all of the assemblies needed to represent the class. This means that dependency will attempt to load if it is included in a method signature, as a field/event/property. The class itself as well as its members can be <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/static"><code>static</code></a> or not as it handles both cases identically. The following example demonstrates that even mutating a non-<code>Foo</code> value within a static class causes the dependency to load.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> Dependency;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DLLProject</span>
+{
+    <span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span>
+    {
+        <span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> _i;
+
+        <span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> List&lt;Foo&gt; s_foo = <span class="hljs-keyword">new</span>();
+
+        <span class="hljs-function"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> Foo <span class="hljs-title">F</span>(<span class="hljs-params">Foo f</span>)</span> =&gt; f;
+
+        <span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> Foo R =&gt; <span class="hljs-keyword">new</span>();
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Test._i++;
+
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            Console.WriteLine(assemblies.Select(s =&gt; s.GetName().Name).Contains(<span class="hljs-string">"Dependency"</span>));
+        }
+    }
+}
+</div></code></pre>
+<p>The output:</p>
+<pre class="hljs"><code><div>true
+</div></code></pre>
+<h1 id="chapter-3-unity--mono">Chapter 3: Unity / Mono</h1>
+<h2 id="chapter-31-using-the-dll-pattern-in-unity">Chapter 3.1: Using the DLL Pattern in Unity</h2>
+<p>The DDL pattern showed a way to handle dependencies automatically depending on the environment, however the problem was that you would have to somehow determine the existence of the assembly in the first place. In Unity though, one option definitely makes this pattern very useful, notably <a href="https://docs.unity3d.com/ScriptReference/Application-isEditor.html"><code>Application.isEditor</code></a>, which determines whether the code is being run in the Unity Editor or is compiled as an executable runtime. One example where you could use this is if you are creating a Unity project for another Unity-based project, and require referencing the <code>Assembly-CSharp.dll</code> file.</p>
+<p><code>Assembly-CSharp.dll</code> is a file generated by Unity that contains the entire codebase of the project, the assembly name is hardcoded and cannot be changed, neither are they strongly named as shown in <a href="#chapter-15-strong-naming">Chapter 1.5: Strong naming</a>, this means that trying to import the dll into the <a href="https://docs.unity3d.com/Manual/Plugins.html">Plugins</a> folder will cause a conflict between it and the generated assembly from your own scripts.</p>
+<p>To circumvent this, you first create a <a href="https://docs.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio">Class Library</a> project and add the desired <code>Assembly-CSharp.dll</code> reference. From there, use the DDL pattern as described in
+<a href="#chapter-23-the-ddl-pattern">Chapter 2.3: The DDL Pattern</a>.</p>
+<p>Such an implementation may be abstracted as the following code:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> Assets.Scripts;
+<span class="hljs-keyword">using</span> UnityEngine;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DLLProject</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dependency</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Access</span>(<span class="hljs-params">Action game, Action otherwise = <span class="hljs-literal">null</span></span>)</span>
+        {
+            <span class="hljs-keyword">if</span> (Application.isEditor)
+            {
+                game();
+                <span class="hljs-keyword">return</span>;
+            }
+
+            otherwise?.Invoke();
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> T Access&lt;T&gt;(Func&lt;T&gt; game, Func&lt;T&gt; otherwise = <span class="hljs-literal">null</span>)
+            =&gt; Application.isEditor ? game() : otherwise?.Invoke();
+    }
+}
+</div></code></pre>
+<p>With a method such as this, you can take advantage of the concepts introduced in <a href="#chapter-24-delegates-and-methods">Chapter 2.4: Delegates and methods</a> and access any game dependency from within the library, provided that you always use this method first.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> score = Dependency.Access(() =&gt; Player.Instance.Score);
+</div></code></pre>
+<h2 id="chapter-32-dependency-avoidance-from-generics-in-unity">Chapter 3.2: Dependency Avoidance from Generics in Unity</h2>
+<p>An extremely important edge case are generics. In order for Mono to compile your code in the Unity Editor, it first scans through the entire codebase for all the required types.</p>
+<p>If you are returning something from an assembly you cannot yet access, callbacks and generics can have rather unpredictable behavior when trying to use DDL.</p>
+<p>The following code will throw errors when entering in Unity.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> Assets.Scripts;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Unused</span>(<span class="hljs-params"></span>)</span>
+        {
+            InaccessibleComponent component = <span class="hljs-literal">null</span>;
+
+            Action uhOh = () =&gt; Debug.Log(component);
+        }
+    }
+}
+</div></code></pre>
+<p>This is because of the action <code>uhOh</code>. This is a method that takes no parameters, yet is able to access <code>component</code> despite that. To circumvent that, C# will generate a display class during compilation. This means that any variable passed into a closure will generate a class that will contain a member to that reference.</p>
+<pre class="hljs"><code><div>[<span class="hljs-meta">CompilerGenerated</span>]
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">sealed</span> <span class="hljs-keyword">class</span> &lt;&gt;<span class="hljs-title">c__DisplayClass0_0</span>
+{
+    <span class="hljs-comment">// This auto-generated line is what causes issues!</span>
+    <span class="hljs-keyword">public</span> InaccessibleComponent component;
+
+    <span class="hljs-keyword">internal</span> <span class="hljs-keyword">void</span> &lt;M&gt;b__0()
+    {
+        Debug.Log(component);
+    }
+}
+</div></code></pre>
+<p>Fortunately, we can circumvent this with casting.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> Assets.Scripts;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">DDLProject</span>
+{
+    <span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Unused</span>(<span class="hljs-params"></span>)</span>
+        {
+            <span class="hljs-keyword">object</span> component = (InaccessibleComponent)<span class="hljs-literal">null</span>;
+
+            Action uhOh = () =&gt; Debug.Log((InaccessibleComponent)component);
+        }
+    }
+}
+</div></code></pre>
+<p>This will cause the auto-generated member <code>component</code> in <code>&lt;&gt;c__DisplayClass0_0</code> to be of type <a href="https://docs.microsoft.com/en-us/dotnet/api/system.object"><code>object</code></a> as oppose to <code>InaccessibleComponent</code>, which works around this issue as Mono will have to dismiss the dependency as <a href="https://docs.microsoft.com/en-us/dotnet/api/system.object"><code>object</code></a> from <code>mscorlib</code> rather than whatever dependency <code>InaccessibleComponent</code> comes from.</p>
+<p>For Unity, you can generally use non-generic method overloads and then cast the result. This is extremely useful regarding Unity API calls. Overhead will occur due to the capture of <code>this</code> within the closure, but is still faster than <code>System.Reflection</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">object</span> inaccessibleComponent = Dependency.Access(() =&gt;
+{
+    <span class="hljs-keyword">object</span> comp = GetComponent(<span class="hljs-keyword">typeof</span>(InaccessibleComponent));
+
+    InaccessibleComponent inaccessible = (InaccessibleComponent)inaccessible;
+
+    inaccessible.AccessAnyPropertyHere = <span class="hljs-string">"This is totally fine!"</span>;
+
+    <span class="hljs-keyword">return</span> inaccessible;
+});
+</div></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>This paper extensively documented the way that dependencies are handled during the runtime execution of C# code. As C# code is compiled down to IL (Intermediate Language), this should theoretically be applicable to other IL-based languages such as Visual Basic and F#. As I lack the experience for those languages, I am unable to confirm for sure whether there are any other hoops involved such as potential quirks with the compiler.</p>
+<p>C# being a high-level language means that a lot of these small details are intentionally abstracted away from you. In a majority of situations, what the language does for you is correct. However, the language still allows fine control over low-level concepts. The DDL Pattern is on its own a low-level way of handling dependencies, the same way that <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/unsafe-code">pointers</a> are a low-level way of handling unmanaged memory.</p>
+<p>The DDL Pattern on its own is situational, and perhaps not as applicable as other design patterns like the <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>. Using the pattern on a test project on its own does give you good insight into how concepts like dependencies work, and the flexibility of such a pattern can encourage you to employ it into more serious projects to significantly improve performance by avoiding use of excessive reflection.</p>
+<p>For an example of how the DDL Pattern can be integrated practically, refer to <a href="https://github.com/Emik03/Pakala">this repository</a>.</p>
+
+</body>
+</html>
